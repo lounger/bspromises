@@ -1,35 +1,35 @@
 '///////////////////////////////////////////////////////////////
 '//
-'//  $copyright: Copyright (C) 2015 BSKYB
+'//  $copyright: Copyright (C) 2015 zurquhart@googlemail.com
 '//
 '///////////////////////////////////////////////////////////////
-function Deferred(promiseInstance as Object, destination as Object, errorDestination as Object, successHandler as Object, errorHandler as Object) as Object
+function Deferred(promiseInstance as object, destination as object, errorDestination as object, successHandler as object, errorHandler as object) as object
   this = {
     typeof: "Deferred"
 
-'----------------------------------------
-' Properties
-'----------------------------------------
-    
-    _promiseInstance  : promiseInstance
-    _destination      : destination
-    _errorDestination : errorDestination
-    _successHandler   : successHandler
-    _errorHandler     : errorHandler
+    '----------------------------------------
+    ' Properties
+    '----------------------------------------
 
-'----------------------------------------
-' Public API
-'----------------------------------------
+    _promiseInstance: promiseInstance
+    _destination: destination
+    _errorDestination: errorDestination
+    _successHandler: successHandler
+    _errorHandler: errorHandler
 
-    triggerSuccess: function(payload = Invalid as Object) as Void
-    	m._bind(m._successHandler, m._destination, payload)
+    '----------------------------------------
+    ' Public API
+    '----------------------------------------
+
+    triggerSuccess: function(payload = invalid as object) as void
+      m._bind(m._successHandler, m._destination, payload)
     end function
 
-    triggerReject: function(payload = Invalid as Object) as Void
-      if m._errorHandler <> Invalid
+    triggerReject: function(payload = invalid as object) as void
+      if m._errorHandler <> invalid
         m._bind(m._errorHandler, m._errorDestination, payload)
       else
-        if payload = Invalid 
+        if payload = invalid
           m._promiseInstance.reject()
         else
           m._promiseInstance.reject(payload)
@@ -37,18 +37,18 @@ function Deferred(promiseInstance as Object, destination as Object, errorDestina
       end if
     end function
 
-    _bind: function(handler as Object, destination as Object, payload = Invalid as Object) as void
+    _bind: function(handler as object, destination as object, payload = invalid as object) as void
       response = m._executeHandler(handler, destination, payload)
-      if response <> Invalid
+      if response <> invalid
         response.onSuccess(m._promiseInstance, "resolve", payload)
         response.onFail(m._promiseInstance, "reject", payload)
-      end if 
+      end if
     end function
 
-    _executeHandler: function(handler as String, destination as Object, payload = Invalid as Object) as Object
-      if payload <> Invalid
-    		return destination[handler](payload)
-    	end if
+    _executeHandler: function(handler as string, destination as object, payload = invalid as object) as object
+      if payload <> invalid
+        return destination[handler](payload)
+      end if
       return destination[handler]()
     end function
   }

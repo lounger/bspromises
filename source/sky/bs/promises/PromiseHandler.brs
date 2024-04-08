@@ -1,42 +1,42 @@
 '///////////////////////////////////////////////////////////////
 '//
-'//  $copyright: Copyright (C) 2015 BSKYB
+'//  $copyright: Copyright (C) 2015 zurquhart@googlemail.com
 '//
 '///////////////////////////////////////////////////////////////
-function PromiseHandler(destination as Object, handler as String, args = Invalid as Object) as Object
+function PromiseHandler(destination as object, handler as string, args = invalid as object) as object
   this = {
     typeof: "PromiseHandler"
 
-'----------------------------------------
-' Properties
-'----------------------------------------
+    '----------------------------------------
+    ' Properties
+    '----------------------------------------
 
-    _destination : destination
-  	_handler : handler
-    _args    : args
+    _destination: destination
+    _handler: handler
+    _args: args
 
-'----------------------------------------
-' Public API
-'----------------------------------------
+    '----------------------------------------
+    ' Public API
+    '----------------------------------------
 
-    dispatch: function(payload = Invalid as Object) as Void
-      if m._args <> Invalid
+    dispatch: function(payload = invalid as object) as void
+      if m._args <> invalid
         bundledPayload = {}
         bundledPayload.append(m._args)
-        if payload <> Invalid
+        if payload <> invalid
           bundledPayload.append(payload)
         end if
         payload = bundledPayload
       end if
 
-      if payload <> Invalid
+      if payload <> invalid
         m._destination[m._handler](payload)
       else
         m._destination[m._handler]()
-      end if 
+      end if
     end function
 
-    init: function() as Object
+    init: function() as object
     end function
 
 
